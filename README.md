@@ -29,6 +29,27 @@ Your AI stores memories. Your AI searches memories. You own your data. No cloud.
 
 ---
 
+## Screenshots
+
+### Dashboard
+![Dashboard](screenshots/atlas-gui-dashboard.png)
+
+### Memory Browser
+![Memories](screenshots/atlas-gui-memories.png)
+
+### Conversation Threads
+![Threads](screenshots/atlas-gui-threads.png)
+
+### API Monitor
+![API Monitor](screenshots/atlas-gui-apimonitor.png)
+
+### Settings
+![Settings](screenshots/atlas-gui-settings.png)
+
+*Web GUI included in the Python version. Rust binary version — API only (web GUI coming soon).*
+
+---
+
 ## 30-Second Quick Start
 
 ```bash
