@@ -63,12 +63,12 @@ We benchmark against every major memory system using standard academic tests.
 
 | System | Score | Type |
 |--------|-------|------|
-| HydraDB | 90.79% | Closed source |
+| [HydraDB](https://hydradb.ai) | 90.79% | Closed source |
 | **Atlas Memory** | **88.18%** | **Open / Self-hosted** |
-| Supermemory | 85.20% | Open source |
-| Zep | 71.20% | Commercial |
+| [Supermemory](https://github.com/supermemoryai/supermemory) | 85.20% | Open source |
+| [Zep](https://github.com/getzep/zep) | 71.20% | Commercial |
 | Full-context GPT-4o | 60.20% | LLM baseline |
-| Mem0 (open source) | 29.07% | Open source |
+| [Mem0](https://github.com/mem0ai/mem0) (open source) | 29.07% | Open source |
 
 ### LoCoMo (502 QA pairs — LLM-as-Judge)
 
@@ -77,16 +77,16 @@ We benchmark against every major memory system using standard academic tests.
 | **Atlas Memory (enhanced)** | **87.05%** | **Open / Self-hosted** |
 | **Atlas Memory (production)** | **74.70%** | **Open / Self-hosted** |
 | Full-context (26k tokens) | 72.90% | LLM baseline |
-| Mem0ᵍ (graph memory) | 68.44% | Open source |
-| Mem0 | 66.88% | Open source |
-| Zep | 65.99% | Commercial |
+| [Mem0ᵍ](https://github.com/mem0ai/mem0) (graph memory) | 68.44% | Open source |
+| [Mem0](https://github.com/mem0ai/mem0) | 66.88% | Open source |
+| [Zep](https://github.com/getzep/zep) | 65.99% | Commercial |
 | RAG (best config, k=2) | 60.97% | Standard RAG |
-| LangMem | 58.10% | Open source |
-| OpenAI Memory (ChatGPT) | 52.90% | Proprietary |
-| A-Mem | 48.38% | Research |
+| [LangMem](https://github.com/langchain-ai/langmem) | 58.10% | Open source |
+| [OpenAI Memory](https://openai.com/index/memory-and-new-controls-for-chatgpt/) (ChatGPT) | 52.90% | Proprietary |
+| [A-Mem](https://github.com/agentic-memory/a-mem) | 48.38% | Research |
 | **Atlas Memory (standalone)** | **43.63%** | **No LLM required** |
 
-*Mem0/Zep/OpenAI scores from [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). Atlas scores from our own evaluation on the same 502 QA pairs using LLM-as-Judge.*
+*Mem0/Zep/OpenAI/LangMem/A-Mem scores from the [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). Atlas scores from our own evaluation on the same 502 QA pairs using LLM-as-Judge.*
 
 ### Atlas Memory — All Versions
 
