@@ -70,19 +70,23 @@ We benchmark against every major memory system using standard academic tests.
 | Full-context GPT-4o | 60.20% | LLM baseline |
 | Mem0 (open source) | 29.07% | Open source |
 
-### LoCoMo (502 questions)
+### LoCoMo (502 QA pairs — LLM-as-Judge)
 
 | System | Score | Type |
 |--------|-------|------|
 | **Atlas Memory (enhanced)** | **87.05%** | **Open / Self-hosted** |
 | **Atlas Memory (production)** | **74.70%** | **Open / Self-hosted** |
-| **Atlas Memory (standalone)** | **43.63%** | **Open / Self-hosted** |
-| Full-context GPT-4o (128k) | ~38% | LLM baseline |
-| RAG + GPT-4 (observation) | ~34% | Paper baseline |
-| RAG + GPT-4 (Contriever) | ~28% | Paper baseline |
-| GPT-4 (no retrieval) | ~18% | LLM baseline |
+| Full-context (26k tokens) | 72.90% | LLM baseline |
+| Mem0ᵍ (graph memory) | 68.44% | Open source |
+| Mem0 | 66.88% | Open source |
+| Zep | 65.99% | Commercial |
+| RAG (best config, k=2) | 60.97% | Standard RAG |
+| LangMem | 58.10% | Open source |
+| OpenAI Memory (ChatGPT) | 52.90% | Proprietary |
+| A-Mem | 48.38% | Research |
+| **Atlas Memory (standalone)** | **43.63%** | **No LLM required** |
 
-*LoCoMo paper (Maharana et al., 2024) reports F1; Atlas uses LLM-as-Judge on the same 502 QA pairs. Other memory systems (Mem0, Zep, etc.) have not published LoCoMo results.*
+*Mem0/Zep/OpenAI scores from [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). Atlas scores from our own evaluation on the same 502 QA pairs using LLM-as-Judge.*
 
 ### Atlas Memory — All Versions
 
