@@ -117,7 +117,7 @@ chmod +x atlas-memory
 ./atlas-memory
 ```
 
-### macOS (Apple Silicon)
+### macOS (Apple Silicon — M1/M2/M3/M4)
 
 ```bash
 curl -L -o atlas-memory \
@@ -128,9 +128,8 @@ chmod +x atlas-memory
 
 ### Windows
 
-Download `atlas-memory-windows-x86_64.exe` from [Releases](https://github.com/dddabtc/atlas-memory-releases/releases/latest), then:
-
 ```powershell
+# Download from https://github.com/dddabtc/atlas-memory-releases/releases/latest
 .\atlas-memory-windows-x86_64.exe --port 6420
 ```
 
@@ -531,13 +530,15 @@ Atlas Memory scores 88.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement.
 
 ## Platform Support
 
-| Platform | Status | Download |
-|----------|--------|----------|
-| Linux x86_64 | ✅ Available | [Download](https://github.com/dddabtc/atlas-memory-releases/releases/latest) |
+| Platform | Status | Binary |
+|----------|--------|--------|
+| Linux x86_64 | ✅ Available | `atlas-memory-linux-x86_64` |
+| macOS ARM64 (Apple Silicon) | ✅ Available | `atlas-memory-macos-aarch64` |
+| Windows x86_64 | ✅ Available | `atlas-memory-windows-x86_64.exe` |
 | Linux ARM64 | 🔜 Coming soon | |
-| macOS ARM64 (Apple Silicon) | ✅ Available | [Download](https://github.com/dddabtc/atlas-memory-releases/releases/latest) |
-| macOS x86_64 | 🔜 Coming soon | |
-| Windows x86_64 | 🔜 Coming soon | |
+| macOS x86_64 (Intel) | 🔜 Coming soon | |
+
+[**→ Download latest release**](https://github.com/dddabtc/atlas-memory-releases/releases/latest)
 
 ---
 
