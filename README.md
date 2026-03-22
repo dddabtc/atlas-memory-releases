@@ -137,11 +137,20 @@ We benchmark against every major memory system using standard academic tests.
 
 ## Installation
 
-### Linux
+### Linux (x86_64)
 
 ```bash
 curl -L -o atlas-memory \
   https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-x86_64
+chmod +x atlas-memory
+./atlas-memory
+```
+
+### Linux (ARM64 — Raspberry Pi, AWS Graviton)
+
+```bash
+curl -L -o atlas-memory \
+  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-aarch64
 chmod +x atlas-memory
 ./atlas-memory
 ```
@@ -562,10 +571,9 @@ Atlas Memory scores 88.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement.
 | Platform | Status | Binary |
 |----------|--------|--------|
 | Linux x86_64 | ✅ Available | `atlas-memory-linux-x86_64` |
+| Linux ARM64 (Pi, Graviton) | ✅ Available | `atlas-memory-linux-aarch64` |
 | macOS ARM64 (Apple Silicon) | ✅ Available | `atlas-memory-macos-aarch64` |
 | Windows x86_64 | ✅ Available | `atlas-memory-windows-x86_64.exe` |
-| Linux ARM64 | 🔜 Coming soon | |
-| macOS x86_64 (Intel) | 🔜 Coming soon | |
 
 [**→ Download latest release**](https://github.com/dddabtc/atlas-memory-releases/releases/latest)
 
