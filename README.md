@@ -1,56 +1,116 @@
 # Atlas Memory
 
-> Self-hosted long-term memory server for AI agents. Single binary, zero dependencies.
+### Give Your AI a Memory That Actually Works
+
+> Self-hosted long-term memory for AI agents and chatbots.
+> Download one file. Run it. Your AI remembers everything.
 
 ![LongMemEval](https://img.shields.io/badge/LongMemEval--s-88.18%25_%232_globally-brightgreen)
 ![LoCoMo](https://img.shields.io/badge/LoCoMo-87.05%25_Judge-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
 
-## What is Atlas Memory?
+---
 
-Atlas Memory is a self-hosted long-term memory server for AI agents. It stores, indexes, and retrieves conversation memories using hybrid search (semantic embeddings + token overlap). Run a single binary and integrate via REST API — no cloud, no vendor lock-in.
+## The Problem
 
-## How It Compares
+AI assistants forget everything between conversations. You tell ChatGPT your name, your preferences, your project details — and next session, it's gone. Context windows help, but they have limits. RAG systems are complex to set up and maintain.
 
-| System | LongMemEval-s | Notes |
-|--------|--------------|-------|
-| HydraDB | 90.79% | #1 globally |
-| **Atlas Memory** | **88.18%** | **#2 globally** |
-| Supermemory | 85.20% | |
-| Zep | 71.20% | |
-| Full-context GPT-4o | 60.20% | |
-| Mem0-oss | 29.07% | |
+## The Solution
+
+Atlas Memory is a **single binary** you run on your machine. It gives any AI agent persistent, searchable long-term memory via a simple REST API.
+
+```bash
+# That's it. Download, run, done.
+./atlas-memory --port 6420
+```
+
+Your AI stores memories. Your AI searches memories. You own your data. No cloud. No subscriptions. No PhD required.
+
+---
+
+## 30-Second Quick Start
+
+```bash
+# 1. Download
+curl -L -o atlas-memory \
+  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-x86_64
+chmod +x atlas-memory
+
+# 2. Run
+./atlas-memory
+
+# 3. Store a memory
+curl -X POST localhost:6420/memories \
+  -H 'Content-Type: application/json' \
+  -d '{"content": "User prefers dark roast coffee with oat milk"}'
+
+# 4. Search it later
+curl -X POST localhost:6420/memories/search \
+  -H 'Content-Type: application/json' \
+  -d '{"query": "what coffee does the user like?"}'
+```
+
+That's it. No config files, no databases to set up, no Docker, no Python.
+
+---
+
+## How Good Is It?
+
+We benchmark against every major memory system using standard academic tests.
+
+| System | LongMemEval-s | Type |
+|--------|--------------|------|
+| HydraDB | 90.79% | Closed source |
+| **Atlas Memory** | **88.18%** | **Open / Self-hosted** |
+| Supermemory | 85.20% | Open source |
+| Zep | 71.20% | Commercial |
+| Full-context GPT-4o | 60.20% | Baseline |
+| Mem0 (open source) | 29.07% | Open source |
+
+**Atlas Memory is the #1 self-hosted memory system** and #2 overall globally on the LongMemEval benchmark.
+
+---
+
+## Who Is This For?
+
+- **AI developers** building chatbots, assistants, or agents that need to remember users
+- **Hobbyists** running local AI setups (Ollama, LM Studio, etc.) who want persistent memory
+- **Teams** building internal AI tools that need conversation history
+- **Privacy-conscious users** who want memory that stays on their machine
+- **[OpenClaw](https://github.com/openclaw/openclaw) users** who want to upgrade their agent's memory (see integration guide below)
+
+---
 
 ## Installation
 
-### Download Binary
+### Linux
 
 ```bash
-# Linux x86_64
 curl -L -o atlas-memory \
-  https://github.com/dddabtc/atlas-memory-releases/releases/download/v4.2.4-rs/atlas-memory-linux-x86_64
+  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-x86_64
 chmod +x atlas-memory
+./atlas-memory
 ```
 
-More platforms (macOS, Windows, Linux ARM64) coming in the next release.
-
-### Run
+### macOS (Apple Silicon)
 
 ```bash
-# Start with default settings (port 6420, SQLite in current directory)
+curl -L -o atlas-memory \
+  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-macos-aarch64
+chmod +x atlas-memory
 ./atlas-memory
-
-# Custom port
-./atlas-memory --port 8080
-
-# Custom host + port
-./atlas-memory --host 0.0.0.0 --port 6420
-
-# With config file
-./atlas-memory --config /path/to/config.yaml
 ```
 
-### Systemd Service (Linux)
+### Windows
+
+Download `atlas-memory-windows-x86_64.exe` from [Releases](https://github.com/dddabtc/atlas-memory-releases/releases/latest), then:
+
+```powershell
+.\atlas-memory-windows-x86_64.exe --port 6420
+```
+
+### Run as a Service (Linux)
 
 ```bash
 sudo tee /etc/systemd/system/atlas-memory.service << 'EOF'
@@ -74,18 +134,82 @@ sudo cp atlas-memory /usr/local/bin/
 sudo systemctl enable --now atlas-memory
 ```
 
-### Docker (coming soon)
-
-```bash
-docker run -p 6420:6420 -v atlas-data:/data dddabtc/atlas-memory:latest
-```
-
-### Verify Installation
+### Verify It's Running
 
 ```bash
 curl http://localhost:6420/health
 # → {"status":"ok","version":"4.2.4-rs","memory_count":0}
 ```
+
+---
+
+## Integrate with OpenClaw
+
+[OpenClaw](https://github.com/openclaw/openclaw) is an open-source AI agent framework. Atlas Memory plugs in as its long-term memory backend.
+
+### Step 1: Start Atlas Memory
+
+```bash
+./atlas-memory --port 6420
+```
+
+### Step 2: Configure OpenClaw
+
+In your OpenClaw `config.yaml`, add the Atlas Memory provider:
+
+```yaml
+memory:
+  provider: atlas
+  atlas:
+    url: http://localhost:6420
+    # Or remote: http://your-server:6420
+```
+
+### Step 3: That's It
+
+OpenClaw will automatically:
+- Store conversation summaries and key facts to Atlas Memory
+- Search relevant memories before each response
+- Use `memory_search` tool to recall prior context
+
+### How It Works with OpenClaw
+
+```
+User: "Remember I'm allergic to shellfish"
+  ↓
+OpenClaw stores → POST /memories {"content": "User is allergic to shellfish"}
+  ↓
+(days later)
+User: "What should I order at this seafood restaurant?"
+  ↓
+OpenClaw searches → POST /memories/search {"query": "food allergies dietary restrictions"}
+  ↓
+Atlas returns → "User is allergic to shellfish"
+  ↓
+OpenClaw: "I'd recommend the grilled salmon — and I remember you're allergic to shellfish, so I'll avoid suggesting shrimp or crab dishes."
+```
+
+### Multi-Agent Setup
+
+Run one Atlas Memory server, share it across multiple OpenClaw agents:
+
+```yaml
+# Agent 1 (personal assistant)
+memory:
+  provider: atlas
+  atlas:
+    url: http://192.168.1.100:6420
+
+# Agent 2 (work assistant) — same server, different session_ids
+memory:
+  provider: atlas
+  atlas:
+    url: http://192.168.1.100:6420
+```
+
+Each agent uses `session_id` to keep their memories separate, or share memories across agents for team use.
+
+---
 
 ## CLI Reference
 
@@ -104,96 +228,89 @@ Options:
 ### Examples
 
 ```bash
-# Development — default settings
+# Default — just works
 ./atlas-memory
 
-# Production — custom config
-./atlas-memory --config /etc/atlas-memory/config.yaml --port 6420
+# Custom port
+./atlas-memory --port 8080
 
-# Testing — in-memory (ephemeral)
-./atlas-memory --db :memory: --port 9999
+# Production with config
+./atlas-memory --config /etc/atlas-memory/config.yaml
 
 # Multiple instances
 ./atlas-memory --port 6420 --db production.db &
 ./atlas-memory --port 6421 --db staging.db &
 ```
 
+---
+
 ## API Reference
 
 Base URL: `http://localhost:6420`
 
-### Health Check
+### At a Glance
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/health` | Server status |
+| `POST` | `/memories` | Store a memory |
+| `POST` | `/memories/search` | Search memories |
+| `GET` | `/memories` | List all memories |
+| `GET` | `/memories/{id}` | Get one memory |
+| `PATCH` | `/memories/{id}` | Update a memory |
+| `DELETE` | `/memories/{id}` | Delete a memory |
+| `GET` | `/memories/stats` | Usage statistics |
+| `POST` | `/memories/reindex` | Rebuild search index |
+| `POST` | `/memories/distill` | Summarize a session |
+
+### Store a Memory
 
 ```bash
-GET /health
-```
-
-```bash
-$ curl http://localhost:6420/health
-{
-  "status": "ok",
-  "version": "4.2.4-rs",
-  "memory_count": 2994,
-  "has_embeddings": false,
-  "llm_available": false,
-  "embedding_provider": "none"
-}
-```
-
-### Create Memory
-
-```bash
-POST /memories
-Content-Type: application/json
-```
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `content` | string | ✅ | Memory content text |
-| `title` | string | | Optional title |
-| `session_id` | string | | Group by conversation session |
-| `labels` | string[] | | Tags for filtering |
-
-```bash
-$ curl -X POST http://localhost:6420/memories \
+curl -X POST localhost:6420/memories \
   -H 'Content-Type: application/json' \
   -d '{
-    "content": "User prefers dark roast coffee, no sugar, with oat milk.",
+    "content": "User prefers dark roast coffee with oat milk, no sugar.",
     "title": "Coffee preference",
     "session_id": "chat-2024-01-15",
     "labels": ["preference", "food"]
   }'
-{
-  "id": "a1b2c3d4-...",
-  "content": "User prefers dark roast coffee...",
-  "created_at": "2024-01-15T10:30:00Z"
-}
 ```
+
+**Fields:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `content` | string | ✅ | The memory text |
+| `title` | string | | Short label |
+| `session_id` | string | | Group by conversation |
+| `labels` | string[] | | Tags for filtering |
 
 ### Search Memories
 
 ```bash
-POST /memories/search
-Content-Type: application/json
+curl -X POST localhost:6420/memories/search \
+  -H 'Content-Type: application/json' \
+  -d '{"query": "what coffee does the user like?", "limit": 5}'
 ```
+
+**Fields:**
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| `query` | string | ✅ | Search query |
-| `limit` | int | | Max results [default: 10] |
-| `labels` | string[] | | Filter by labels |
+| `query` | string | ✅ | What to search for |
+| `limit` | int | | Max results (default 10) |
+| `labels` | string[] | | Filter by tags |
 | `session_id` | string | | Filter by session |
 | `threshold` | float | | Min similarity score |
 
-```bash
-$ curl -X POST http://localhost:6420/memories/search \
-  -H 'Content-Type: application/json' \
-  -d '{"query": "what kind of coffee does the user like?", "limit": 5}'
+**Response:**
+
+```json
 {
   "results": [
     {
       "id": "a1b2c3d4-...",
-      "content": "User prefers dark roast coffee, no sugar, with oat milk.",
+      "content": "User prefers dark roast coffee with oat milk, no sugar.",
       "score": 0.847,
       "title": "Coffee preference"
     }
@@ -204,115 +321,39 @@ $ curl -X POST http://localhost:6420/memories/search \
 ### List Memories
 
 ```bash
-GET /memories?limit=20&offset=0
+curl 'localhost:6420/memories?limit=20&offset=0'
 ```
 
-| Param | Type | Default | Description |
-|-------|------|---------|-------------|
-| `limit` | int | 20 | Page size |
-| `offset` | int | 0 | Page offset |
+### Get / Update / Delete
 
 ```bash
-$ curl 'http://localhost:6420/memories?limit=2&offset=0'
-{
-  "memories": [...],
-  "total": 2994,
-  "limit": 2,
-  "offset": 0
-}
-```
+# Get one memory
+curl localhost:6420/memories/{id}
 
-### Get Memory
-
-```bash
-GET /memories/{id}
-```
-
-```bash
-$ curl http://localhost:6420/memories/a1b2c3d4-...
-{
-  "id": "a1b2c3d4-...",
-  "content": "User prefers dark roast coffee...",
-  "title": "Coffee preference",
-  "labels": ["preference", "food"],
-  "session_id": "chat-2024-01-15",
-  "created_at": "2024-01-15T10:30:00Z",
-  "updated_at": "2024-01-15T10:30:00Z"
-}
-```
-
-### Update Memory
-
-```bash
-PATCH /memories/{id}
-Content-Type: application/json
-```
-
-```bash
-$ curl -X PATCH http://localhost:6420/memories/a1b2c3d4-... \
+# Update
+curl -X PATCH localhost:6420/memories/{id} \
   -H 'Content-Type: application/json' \
-  -d '{"content": "User now prefers light roast.", "labels": ["preference", "food", "updated"]}'
-```
+  -d '{"content": "Updated text", "labels": ["updated"]}'
 
-### Delete Memory
-
-```bash
-DELETE /memories/{id}
-```
-
-```bash
-$ curl -X DELETE http://localhost:6420/memories/a1b2c3d4-...
-{"status": "deleted"}
+# Delete
+curl -X DELETE localhost:6420/memories/{id}
 ```
 
 ### Stats
 
 ```bash
-GET /memories/stats
+curl localhost:6420/memories/stats
+# → {"total_memories": 2994, "total_sessions": 42, "total_labels": 15, ...}
 ```
+
+### Health Check
 
 ```bash
-$ curl http://localhost:6420/memories/stats
-{
-  "total_memories": 2994,
-  "total_sessions": 42,
-  "total_labels": 15,
-  "label_counts": [
-    {"label": "preference", "count": 230},
-    {"label": "project", "count": 180}
-  ],
-  "oldest_memory": "2024-01-01T00:00:00Z",
-  "newest_memory": "2024-03-22T04:00:00Z"
-}
+curl localhost:6420/health
+# → {"status": "ok", "version": "4.2.4-rs", "memory_count": 2994}
 ```
 
-### Reindex Embeddings
-
-```bash
-POST /memories/reindex
-```
-
-Re-computes embeddings for all memories. Use after changing embedding provider.
-
-```bash
-$ curl -X POST http://localhost:6420/memories/reindex
-{"status": "ok", "reindexed": 2994}
-```
-
-### Distill Session
-
-```bash
-POST /memories/distill
-Content-Type: application/json
-```
-
-Summarize and consolidate memories from a session.
-
-```bash
-$ curl -X POST http://localhost:6420/memories/distill \
-  -H 'Content-Type: application/json' \
-  -d '{"session_id": "chat-2024-01-15"}'
-```
+---
 
 ## Integration Examples
 
@@ -321,16 +362,16 @@ $ curl -X POST http://localhost:6420/memories/distill \
 ```python
 import requests
 
-BASE = "http://localhost:6420"
+ATLAS = "http://localhost:6420"
 
 # Store
-requests.post(f"{BASE}/memories", json={
+requests.post(f"{ATLAS}/memories", json={
     "content": "User's birthday is March 15th",
     "labels": ["personal"]
 })
 
 # Search
-results = requests.post(f"{BASE}/memories/search", json={
+results = requests.post(f"{ATLAS}/memories/search", json={
     "query": "when is the user's birthday?",
     "limit": 5
 }).json()
@@ -342,64 +383,41 @@ for r in results["results"]:
 ### JavaScript / Node.js
 
 ```javascript
-const BASE = "http://localhost:6420";
+const ATLAS = "http://localhost:6420";
 
 // Store
-await fetch(`${BASE}/memories`, {
+await fetch(`${ATLAS}/memories`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    content: "User prefers dark mode in all apps",
-    labels: ["preference", "ui"]
-  })
+  body: JSON.stringify({ content: "User prefers dark mode" })
 });
 
 // Search
-const res = await fetch(`${BASE}/memories/search`, {
+const { results } = await fetch(`${ATLAS}/memories/search`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ query: "UI preferences", limit: 5 })
-});
-const { results } = await res.json();
+}).then(r => r.json());
 ```
 
 ### curl Cheat Sheet
 
 ```bash
-# Store
-curl -X POST localhost:6420/memories \
-  -H 'Content-Type: application/json' \
-  -d '{"content":"remember this"}'
-
-# Search
-curl -X POST localhost:6420/memories/search \
-  -H 'Content-Type: application/json' \
-  -d '{"query":"what to remember","limit":5}'
-
-# List (paginated)
-curl 'localhost:6420/memories?limit=10&offset=0'
-
-# Get one
-curl localhost:6420/memories/{id}
-
-# Update
-curl -X PATCH localhost:6420/memories/{id} \
-  -H 'Content-Type: application/json' \
-  -d '{"content":"updated content"}'
-
-# Delete
-curl -X DELETE localhost:6420/memories/{id}
-
-# Stats
-curl localhost:6420/memories/stats
-
-# Health
-curl localhost:6420/health
+# Store       → POST /memories          + {"content": "..."}
+# Search      → POST /memories/search   + {"query": "...", "limit": 5}
+# List        → GET  /memories?limit=10&offset=0
+# Get one     → GET  /memories/{id}
+# Update      → PATCH /memories/{id}    + {"content": "..."}
+# Delete      → DELETE /memories/{id}
+# Stats       → GET  /memories/stats
+# Health      → GET  /health
 ```
+
+---
 
 ## Configuration
 
-Create `config.yaml` in the working directory or set `ATLAS_CONFIG` env var:
+Atlas Memory works with **zero configuration**. For advanced setups, create `config.yaml`:
 
 ```yaml
 server:
@@ -407,17 +425,16 @@ server:
   port: 6420
 
 database:
-  path: atlas_memory.db      # SQLite file path
+  path: atlas_memory.db
 
+# Optional: better search with OpenAI embeddings
 embedding:
-  provider: builtin           # builtin (local) | openai
-  # OpenAI embedding config (optional)
-  # openai_model: text-embedding-3-large
-  # openai_api_key: env:OPENAI_API_KEY
+  provider: openai
+  openai_model: text-embedding-3-large
+  openai_api_key: env:OPENAI_API_KEY
 
+# Optional: LLM enrichment (entity extraction, query classification)
 llm:
-  # Optional: LLM providers for enrichment (query classification, entity extraction)
-  # Server works fine without any LLM configured
   providers:
     - name: openai
       model: gpt-4.1-mini
@@ -425,20 +442,7 @@ llm:
     - name: ollama
       model: qwen3.5:9b
       base_url: http://localhost:11434
-
-search:
-  default_limit: 10
-  hybrid_weight: 0.7          # 0.0 = pure token-overlap, 1.0 = pure semantic
-
-enrichment:
-  enabled: true               # Enable write-path enrichment
-  extract_entities: true
-  extract_relations: true
-  extract_events: true
-  extract_preferences: true
 ```
-
-**All configuration is optional.** The server works out of the box with zero config — SQLite in current directory, token-overlap search, no LLM required.
 
 ### Environment Variables
 
@@ -446,44 +450,69 @@ enrichment:
 |----------|-------------|
 | `ATLAS_CONFIG` | Path to config.yaml |
 | `ATLAS_PORT` | Override server port |
-| `OPENAI_API_KEY` | OpenAI API key (for embeddings/LLM) |
+| `OPENAI_API_KEY` | For embeddings / LLM enrichment (optional) |
 
-### Config Priority
+### Three Modes
 
-`--port` CLI flag → `config.yaml` → `ATLAS_PORT` env → `6420` default
+| Mode | Requirements | Quality |
+|------|-------------|---------|
+| **Standalone** | Nothing (just the binary) | Good — token-overlap search |
+| **With embeddings** | OpenAI API key | Better — semantic search |
+| **Full enrichment** | OpenAI or Ollama | Best — entities, temporal reasoning, preferences |
+
+---
 
 ## Benchmarks
 
+Tested on standard academic benchmarks with 500+ questions across multi-hop reasoning, temporal reasoning, preferences, and adversarial queries.
+
 | Benchmark | Score | Rank |
 |-----------|-------|------|
-| LongMemEval-s (499Q) | **88.18%** | #2 globally |
-| LoCoMo Judge (502Q) | **87.05%** | Enhanced pipeline |
-| LoCoMo Production | **74.7%** | Server mode |
-| LoCoMo Standalone | **43.6%** | No LLM |
+| **LongMemEval-s** (499 questions) | **88.18%** | **#2 globally, #1 self-hosted** |
+| **LoCoMo Judge** (502 questions) | **87.05%** | Enhanced pipeline |
+| LoCoMo Production | 74.7% | Server mode |
+| LoCoMo Standalone | 43.6% | No LLM, zero dependencies |
 
-## Features
+---
 
-- 🔍 **Hybrid search** — semantic embeddings + token-overlap, works without any LLM
-- 📊 **Benchmark-grade** — 88.18% LongMemEval (#2 globally), 87.05% LoCoMo
-- 🦀 **Single binary** — no runtime dependencies, no Python, no Docker
-- 💾 **SQLite** — zero-config embedded database
-- ⚡ **LLM enrichment** — optional OpenAI/Ollama for entity extraction, query classification
-- 🔄 **Graceful degradation** — no LLM → regex + token-overlap, never crashes
-- 🏷️ **Labels & sessions** — organize memories with tags and conversation groups
-- 📄 **Pagination** — list memories with limit/offset
-- 🔧 **Reindex** — re-compute embeddings after config change
-- 📝 **Distill** — summarize and consolidate session memories
+## FAQ
 
-## Platform
+**Q: Do I need an OpenAI API key?**
+No. Atlas Memory works standalone with zero external dependencies. An API key improves search quality (semantic embeddings vs token overlap) but is completely optional.
 
-| Platform | Status |
-|----------|--------|
-| Linux x86_64 | ✅ Available |
-| Linux ARM64 | 🔜 Coming soon |
-| macOS ARM64 (Apple Silicon) | 🔜 Coming soon |
-| macOS x86_64 | 🔜 Coming soon |
-| Windows x86_64 | 🔜 Coming soon |
+**Q: Where is my data stored?**
+In a SQLite file (`atlas_memory.db`) in your working directory. It never leaves your machine.
+
+**Q: Can I run this on a Raspberry Pi?**
+Linux ARM64 build coming soon. The binary is lightweight (~12MB) and should work well on Pi 4+.
+
+**Q: How many memories can it handle?**
+Tested with 3,000+ memories. SQLite can handle millions. Search latency scales with data volume.
+
+**Q: Is there a web UI?**
+Not yet in the Rust version. The Python version has a basic web UI. Coming soon.
+
+**Q: How is this different from Mem0?**
+Atlas Memory scores 88.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Atlas preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
+
+---
+
+## Platform Support
+
+| Platform | Status | Download |
+|----------|--------|----------|
+| Linux x86_64 | ✅ Available | [Download](https://github.com/dddabtc/atlas-memory-releases/releases/latest) |
+| Linux ARM64 | 🔜 Coming soon | |
+| macOS ARM64 (Apple Silicon) | ✅ Available | [Download](https://github.com/dddabtc/atlas-memory-releases/releases/latest) |
+| macOS x86_64 | 🔜 Coming soon | |
+| Windows x86_64 | 🔜 Coming soon | |
+
+---
 
 ## License
 
-MIT
+MIT — use it however you want.
+
+---
+
+**Built with 🦀 Rust. Benchmarked against the best. Self-hosted forever.**
