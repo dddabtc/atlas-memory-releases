@@ -1,0 +1,59 @@
+# Atlas Memory Configuration
+# Copy to config.yaml and adjust as needed.
+
+server:
+  host: "0.0.0.0"
+  port: 6420
+
+database:
+  path: "atlas_memory.db"
+
+search:
+  # Hybrid search weights (must sum to 1.0)
+  semantic_weight: 0.7
+  token_overlap_weight: 0.3
+  default_limit: 10
+
+embedding:
+  # Provider: "openai" or "none"
+  provider: "none"
+  model: "text-embedding-3-large"
+  dimensions: 3072
+  # Use env:VAR_NAME syntax to reference environment variables
+  api_key: "env:OPENAI_API_KEY"
+  api_base: "https://api.openai.com/v1"
+
+llm:
+  # Provider chain — tried in order, first healthy one wins
+  providers:
+    - name: "openai"
+      type: "openai"
+      api_key: "env:OPENAI_API_KEY"
+      api_base: "https://api.openai.com/v1"
+      model: "gpt-4o-mini"
+      enabled: true
+
+    - name: "ollama"
+      type: "ollama"
+      api_base: "http://localhost:11434"
+      model: "llama3"
+      enabled: false
+
+  # Fallback behavior when no LLM is available
+  fallback: "regex"  # "regex" or "none"
+
+enrichment:
+  # Fire-and-forget write-path enrichment
+  enabled: true
+  # Knowledge graph extraction
+  kg_enabled: true
+  # Entity linking across sessions
+  entity_linking: true
+
+logging:
+  level: "info"  # trace, debug, info, warn, error
+
+web:
+  # Static file serving for web UI
+  enabled: false
+  static_dir: "static"
