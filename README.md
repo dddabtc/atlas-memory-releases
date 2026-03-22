@@ -46,7 +46,7 @@ Your AI stores memories. Your AI searches memories. You own your data. No cloud.
 ### Settings
 ![Settings](screenshots/atlas-gui-settings.png)
 
-*Web GUI included in the Python version. Rust binary version — API only (web GUI coming soon).*
+*Web GUI is embedded in the binary — no separate install needed. Just run and open your browser.*
 
 ---
 
@@ -559,7 +559,7 @@ Linux ARM64 build coming soon. The binary is lightweight (~12MB) and should work
 Tested with 3,000+ memories. SQLite can handle millions. Search latency scales with data volume.
 
 **Q: Is there a web UI?**
-Not yet in the Rust version. The Python version has a basic web UI. Coming soon.
+Yes! The web UI is embedded in the binary — just run it and open `http://localhost:6420` in your browser. Includes dashboard, memory browser, threads, DAG viewer, API monitor, and settings.
 
 **Q: How is this different from Mem0?**
 Atlas Memory scores 88.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Atlas preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
