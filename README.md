@@ -85,8 +85,12 @@ We benchmark against every major memory system using standard academic tests.
 | [OpenAI Memory](https://openai.com/index/memory-and-new-controls-for-chatgpt/) (ChatGPT) | 52.90% | Proprietary |
 | [A-Mem](https://github.com/agentic-memory/a-mem) | 48.38% | Research |
 | **Atlas Memory (standalone)** | **43.63%** | **No LLM required** |
+| Atlas Memory (v2 baseline) | 29.90% | Legacy version |
+| [OpenViking](https://github.com/volcengine/OpenViking) | 20.60% | Open source (ByteDance) |
+| [LCM](https://papers.voltropy.com/LCM) | 14.50% | Research (Voltropy) |
+| [Nowledge](https://nowledge.ai) | 0.40% | Commercial |
 
-*Mem0/Zep/OpenAI/LangMem/A-Mem scores from the [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). Atlas scores from our own evaluation on the same 502 QA pairs using LLM-as-Judge.*
+*Mem0/Zep/OpenAI/LangMem/A-Mem scores from the [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). OpenViking/LCM/Nowledge scores from our [independent benchmark](https://github.com/dddabtc/lcm-prototype). Atlas scores from our own evaluation. All use LLM-as-Judge on the same LoCoMo QA pairs.*
 
 ### Atlas Memory — All Versions
 
