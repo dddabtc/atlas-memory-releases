@@ -59,16 +59,40 @@ That's it. No config files, no databases to set up, no Docker, no Python.
 
 We benchmark against every major memory system using standard academic tests.
 
-| System | LongMemEval-s | Type |
-|--------|--------------|------|
+### LongMemEval (499 questions)
+
+| System | Score | Type |
+|--------|-------|------|
 | HydraDB | 90.79% | Closed source |
-| **Atlas Memory** | **88.18%** | **Open / Self-hosted** |
+| **Atlas Memory (enhanced)** | **88.18%** | **Open / Self-hosted** |
 | Supermemory | 85.20% | Open source |
 | Zep | 71.20% | Commercial |
-| Full-context GPT-4o | 60.20% | Baseline |
+| Full-context GPT-4o | 60.20% | LLM baseline |
 | Mem0 (open source) | 29.07% | Open source |
 
-**Atlas Memory is the #1 self-hosted memory system** and #2 overall globally on the LongMemEval benchmark.
+### LoCoMo (502 questions — multi-hop, temporal, adversarial reasoning)
+
+| System | Judge Score | Notes |
+|--------|-----------|-------|
+| **Atlas Memory (enhanced)** | **87.05%** | Gemini 2.5 Pro + enriched retrieval |
+| **Atlas Memory (production)** | **74.70%** | gpt-4.1-mini + text-embedding-3-large |
+| **Atlas Memory (standalone)** | **43.63%** | Zero dependencies, token-overlap only |
+| Full-context GPT-4o (128k) | ~38% | Entire conversation in context window |
+| RAG + GPT-4 (observation-based) | ~34% | Paper's best RAG approach (F1-based) |
+| RAG + GPT-4 (Contriever) | ~28% | Standard dense retrieval |
+| GPT-4 (no retrieval) | ~18% | No memory, instruction-tuned only |
+
+*LoCoMo scores from the original paper (Maharana et al., 2024) use F1; Atlas uses LLM-as-Judge (binary correct/incorrect). Both evaluate on the same 502 QA pairs.*
+
+### Atlas Memory — Version Comparison
+
+| Version | LongMemEval | LoCoMo Judge | Setup |
+|---------|-------------|-------------|-------|
+| **Enhanced** | **88.18%** | **87.05%** | Gemini 2.5 Pro, full enrichment pipeline |
+| **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + text-embedding-3-large |
+| **Standalone** | — | **43.63%** | Zero dependencies, no LLM, no API key |
+
+**Atlas Memory is the #1 self-hosted memory system** and #2 overall globally on LongMemEval.
 
 ---
 
@@ -464,14 +488,22 @@ llm:
 
 ## Benchmarks
 
-Tested on standard academic benchmarks with 500+ questions across multi-hop reasoning, temporal reasoning, preferences, and adversarial queries.
+Full results are in the [comparison tables above](#how-good-is-it). Summary:
 
-| Benchmark | Score | Rank |
-|-----------|-------|------|
+| Benchmark | Best Score | Rank |
+|-----------|-----------|------|
 | **LongMemEval-s** (499 questions) | **88.18%** | **#2 globally, #1 self-hosted** |
-| **LoCoMo Judge** (502 questions) | **87.05%** | Enhanced pipeline |
-| LoCoMo Production | 74.7% | Server mode |
-| LoCoMo Standalone | 43.6% | No LLM, zero dependencies |
+| **LoCoMo** (502 questions) | **87.05%** | Enhanced pipeline |
+
+### Per-Category Breakdown (LoCoMo, production mode)
+
+| Category | Judge Score | Description |
+|----------|-----------|-------------|
+| Open-domain | 91.2% | General knowledge recall |
+| Multi-hop | 90.6% | Reasoning across multiple memories |
+| Single-hop | 83.8% | Direct fact retrieval |
+| Temporal | 73.3% | Time-based reasoning ("last week") |
+| Adversarial | 24.3% | Trick questions, false premises |
 
 ---
 
