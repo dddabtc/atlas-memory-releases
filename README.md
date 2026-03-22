@@ -64,35 +64,35 @@ We benchmark against every major memory system using standard academic tests.
 | System | Score | Type |
 |--------|-------|------|
 | HydraDB | 90.79% | Closed source |
-| **Atlas Memory (enhanced)** | **88.18%** | **Open / Self-hosted** |
+| **Atlas Memory** | **88.18%** | **Open / Self-hosted** |
 | Supermemory | 85.20% | Open source |
 | Zep | 71.20% | Commercial |
 | Full-context GPT-4o | 60.20% | LLM baseline |
 | Mem0 (open source) | 29.07% | Open source |
 
-### LoCoMo (502 questions — multi-hop, temporal, adversarial reasoning)
+### LoCoMo (502 questions)
 
-| System | Judge Score | Notes |
-|--------|-----------|-------|
-| **Atlas Memory (enhanced)** | **87.05%** | Gemini 2.5 Pro + enriched retrieval |
-| **Atlas Memory (production)** | **74.70%** | gpt-4.1-mini + text-embedding-3-large |
-| **Atlas Memory (standalone)** | **43.63%** | Zero dependencies, token-overlap only |
-| Full-context GPT-4o (128k) | ~38% | Entire conversation in context window |
-| RAG + GPT-4 (observation-based) | ~34% | Paper's best RAG approach (F1-based) |
-| RAG + GPT-4 (Contriever) | ~28% | Standard dense retrieval |
-| GPT-4 (no retrieval) | ~18% | No memory, instruction-tuned only |
+| System | Score | Type |
+|--------|-------|------|
+| **Atlas Memory (enhanced)** | **87.05%** | **Open / Self-hosted** |
+| **Atlas Memory (production)** | **74.70%** | **Open / Self-hosted** |
+| **Atlas Memory (standalone)** | **43.63%** | **Open / Self-hosted** |
+| Full-context GPT-4o (128k) | ~38% | LLM baseline |
+| RAG + GPT-4 (observation) | ~34% | Paper baseline |
+| RAG + GPT-4 (Contriever) | ~28% | Paper baseline |
+| GPT-4 (no retrieval) | ~18% | LLM baseline |
 
-*LoCoMo scores from the original paper (Maharana et al., 2024) use F1; Atlas uses LLM-as-Judge (binary correct/incorrect). Both evaluate on the same 502 QA pairs.*
+*LoCoMo paper (Maharana et al., 2024) reports F1; Atlas uses LLM-as-Judge on the same 502 QA pairs. Other memory systems (Mem0, Zep, etc.) have not published LoCoMo results.*
 
-### Atlas Memory — Version Comparison
+### Atlas Memory — All Versions
 
-| Version | LongMemEval | LoCoMo Judge | Setup |
-|---------|-------------|-------------|-------|
-| **Enhanced** | **88.18%** | **87.05%** | Gemini 2.5 Pro, full enrichment pipeline |
-| **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + text-embedding-3-large |
-| **Standalone** | — | **43.63%** | Zero dependencies, no LLM, no API key |
+| Version | LongMemEval | LoCoMo | What You Need |
+|---------|-------------|--------|---------------|
+| **Enhanced** | **88.18%** | **87.05%** | Gemini 2.5 Pro + enrichment pipeline |
+| **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + embeddings |
+| **Standalone** | — | **43.63%** | Nothing — just the binary |
 
-**Atlas Memory is the #1 self-hosted memory system** and #2 overall globally on LongMemEval.
+**#1 self-hosted memory system.** #2 overall globally on LongMemEval.
 
 ---
 
