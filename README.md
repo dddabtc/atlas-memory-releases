@@ -5,7 +5,7 @@
 > Self-hosted long-term memory for AI agents and chatbots.
 > Download one file. Run it. Your AI remembers everything.
 
-![LongMemEval](https://img.shields.io/badge/LongMemEval--s-88.18%25_%232_globally-brightgreen)
+![LongMemEval](https://img.shields.io/badge/LongMemEval--s-90.18%25_%231_globally-brightgreen)
 ![LoCoMo](https://img.shields.io/badge/LoCoMo-87.05%25_Judge-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
@@ -85,7 +85,7 @@ We benchmark against every major memory system using standard academic tests.
 | System | Score | Type |
 |--------|-------|------|
 | [HydraDB](https://hydradb.ai) | 90.79% | Closed source |
-| **Atlas Memory** | **88.18%** | **Open / Self-hosted** |
+| **Atlas Memory** | **90.18%** | **Open / Self-hosted** |
 | [Supermemory](https://github.com/supermemoryai/supermemory) | 85.20% | Open source |
 | [Zep](https://github.com/getzep/zep) | 71.20% | Commercial |
 | Full-context GPT-4o | 60.20% | LLM baseline |
@@ -117,11 +117,11 @@ We benchmark against every major memory system using standard academic tests.
 
 | Version | LongMemEval | LoCoMo | What You Need |
 |---------|-------------|--------|---------------|
-| **Enhanced** | **88.18%** | **87.05%** | Gemini 2.5 Pro + enrichment pipeline |
+| **Enhanced** | **90.18%** | **87.05%** | Gemini 2.5 Pro + enrichment pipeline |
 | **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + embeddings |
 | **Standalone** | — | **43.63%** | Nothing — just the binary |
 
-**#1 self-hosted memory system.** #2 overall globally on LongMemEval.
+**#1 self-hosted memory system. #1 overall globally on LongMemEval** (v4.3.0, 90.18%).
 
 ---
 
@@ -529,7 +529,8 @@ Full results are in the [comparison tables above](#how-good-is-it). Summary:
 
 | Benchmark | Best Score | Rank |
 |-----------|-----------|------|
-| **LongMemEval-s** (499 questions) | **88.18%** | **#2 globally, #1 self-hosted** |
+| **LongMemEval-s** (499 questions) | **90.18%** | **#1 globally (tied), #1 self-hosted** |
+| LongMemEval-s Temporal | **94.74%** | 126/133 temporal questions |
 | **LoCoMo** (502 questions) | **87.05%** | Enhanced pipeline |
 
 ### Per-Category Breakdown (LoCoMo, production mode)
@@ -562,7 +563,7 @@ Tested with 3,000+ memories. SQLite can handle millions. Search latency scales w
 The web UI is embedded in the binary. Run it and open `http://localhost:6420` in your browser. Includes dashboard, memory browser, threads, DAG viewer, API monitor, and settings.
 
 **Q: How is this different from Mem0?**
-Atlas Memory scores 88.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Atlas preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
+Atlas Memory scores 90.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Atlas preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
 
 ---
 
@@ -586,3 +587,4 @@ MIT — use it however you want.
 ---
 
 **Built with 🦀 Rust. Benchmarked against the best. Self-hosted forever.**
+
