@@ -5,7 +5,7 @@
 > Self-hosted long-term memory for AI agents and chatbots.
 > Download one file. Run it. Your AI remembers everything.
 
-![LongMemEval](https://img.shields.io/badge/LongMemEval--s-90.18%25_%232_globally-brightgreen)
+![LongMemEval](https://img.shields.io/badge/LongMemEval--s-90.18%25_Open_Source-brightgreen)
 ![LoCoMo](https://img.shields.io/badge/LoCoMo-87.05%25_Judge-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-lightgrey)
@@ -121,7 +121,7 @@ We benchmark against every major memory system using standard academic tests.
 | **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + embeddings |
 | **Standalone** | — | **43.63%** | Nothing — just the binary |
 
-**#1 self-hosted memory system. #2 overall globally on LongMemEval** (v4.3.0, 90.18%).
+The top open-source/self-hosted memory system on LongMemEval (90.18%, v4.3.0).
 
 ---
 
@@ -529,7 +529,7 @@ Full results are in the [comparison tables above](#how-good-is-it). Summary:
 
 | Benchmark | Best Score | Rank |
 |-----------|-----------|------|
-| **LongMemEval-s** (499 questions) | **90.18%** | **#2 globally, #1 self-hosted** |
+| **LongMemEval-s** (499 questions) | **90.18%** | Open source, top performer |
 | LongMemEval-s Temporal | **94.74%** | 126/133 temporal questions |
 | **LoCoMo** (502 questions) | **87.05%** | Enhanced pipeline |
 
@@ -587,5 +587,6 @@ MIT — use it however you want.
 ---
 
 **Built with 🦀 Rust. Benchmarked against the best. Self-hosted forever.**
+
 
 
