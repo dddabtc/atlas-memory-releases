@@ -121,7 +121,7 @@ We benchmark against every major memory system using standard academic tests.
 | **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + embeddings |
 | **Standalone** | — | **43.63%** | Nothing — just the binary |
 
-The top open-source/self-hosted memory system on LongMemEval (90.18%, v4.3.0).
+Atlas Memory v4.3.0 scores 90.18% on LongMemEval-S (450/499 questions).
 
 ---
 
@@ -529,7 +529,7 @@ Full results are in the [comparison tables above](#how-good-is-it). Summary:
 
 | Benchmark | Best Score | Rank |
 |-----------|-----------|------|
-| **LongMemEval-s** (499 questions) | **90.18%** | Open source, top performer |
+| **LongMemEval-s** (499 questions) | **90.18%** | Open source, self-hosted |
 | LongMemEval-s Temporal | **94.74%** | 126/133 temporal questions |
 | **LoCoMo** (502 questions) | **87.05%** | Enhanced pipeline |
 
@@ -587,6 +587,7 @@ MIT — use it however you want.
 ---
 
 **Built with 🦀 Rust. Benchmarked against the best. Self-hosted forever.**
+
 
 
 
