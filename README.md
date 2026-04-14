@@ -1,4 +1,4 @@
-# Atlas Memory
+# Appleseed Memory
 
 ### Give Your AI a Memory That Actually Works
 
@@ -18,11 +18,11 @@ AI assistants forget everything between conversations. You tell ChatGPT your nam
 
 ## The Solution
 
-Atlas Memory is a **single binary** you run on your machine. It gives any AI agent persistent, searchable long-term memory via a simple REST API.
+Appleseed Memory is a **single binary** you run on your machine. It gives any AI agent persistent, searchable long-term memory via a simple REST API.
 
 ```bash
 # That's it. Download, run, done.
-./atlas-memory --port 6420
+./appleseed-memory --port 6420
 ```
 
 Your AI stores memories. Your AI searches memories. You own your data. No cloud. No subscriptions. No PhD required.
@@ -32,19 +32,19 @@ Your AI stores memories. Your AI searches memories. You own your data. No cloud.
 ## Screenshots
 
 ### Dashboard
-![Dashboard](screenshots/atlas-gui-dashboard.png)
+![Dashboard](screenshots/appleseed-gui-dashboard.png)
 
 ### Memory Browser
-![Memories](screenshots/atlas-gui-memories.png)
+![Memories](screenshots/appleseed-gui-memories.png)
 
 ### Conversation Threads
-![Threads](screenshots/atlas-gui-threads.png)
+![Threads](screenshots/appleseed-gui-threads.png)
 
 ### API Monitor
-![API Monitor](screenshots/atlas-gui-apimonitor.png)
+![API Monitor](screenshots/appleseed-gui-apimonitor.png)
 
 ### Settings
-![Settings](screenshots/atlas-gui-settings.png)
+![Settings](screenshots/appleseed-gui-settings.png)
 
 *Web GUI is embedded in the binary — no separate install needed. Just run and open your browser.*
 
@@ -54,12 +54,12 @@ Your AI stores memories. Your AI searches memories. You own your data. No cloud.
 
 ```bash
 # 1. Download
-curl -L -o atlas-memory \
-  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-x86_64
-chmod +x atlas-memory
+curl -L -o appleseed-memory \
+  https://github.com/dddabtc/appleseed-memory-releases/releases/latest/download/appleseed-memory-linux-x86_64
+chmod +x appleseed-memory
 
 # 2. Run
-./atlas-memory
+./appleseed-memory
 
 # 3. Store a memory
 curl -X POST localhost:6420/memories \
@@ -85,7 +85,7 @@ We benchmark against every major memory system using standard academic tests.
 | System | Score | Type |
 |--------|-------|------|
 | [HydraDB](https://hydradb.ai) | 90.79% | Closed source |
-| **Atlas Memory** | **90.18%** | **Open / Self-hosted** |
+| **Appleseed Memory** | **90.18%** | **Open / Self-hosted** |
 | [Supermemory](https://github.com/supermemoryai/supermemory) | 85.20% | Open source |
 | [Zep](https://github.com/getzep/zep) | 71.20% | Commercial |
 | Full-context GPT-4o | 60.20% | LLM baseline |
@@ -95,8 +95,8 @@ We benchmark against every major memory system using standard academic tests.
 
 | System | Score | Type |
 |--------|-------|------|
-| **Atlas Memory (enhanced)** | **87.05%** | **Open / Self-hosted** |
-| **Atlas Memory (production)** | **74.70%** | **Open / Self-hosted** |
+| **Appleseed Memory (enhanced)** | **87.05%** | **Open / Self-hosted** |
+| **Appleseed Memory (production)** | **74.70%** | **Open / Self-hosted** |
 | Full-context (26k tokens) | 72.90% | LLM baseline |
 | [Mem0ᵍ](https://github.com/mem0ai/mem0) (graph memory) | 68.44% | Open source |
 | [Mem0](https://github.com/mem0ai/mem0) | 66.88% | Open source |
@@ -105,15 +105,15 @@ We benchmark against every major memory system using standard academic tests.
 | [LangMem](https://github.com/langchain-ai/langmem) | 58.10% | Open source |
 | [OpenAI Memory](https://openai.com/index/memory-and-new-controls-for-chatgpt/) (ChatGPT) | 52.90% | Proprietary |
 | [A-Mem](https://github.com/agentic-memory/a-mem) | 48.38% | Research |
-| **Atlas Memory (standalone)** | **43.63%** | **No LLM required** |
-| Atlas Memory (v2 baseline) | 29.90% | Legacy version |
+| **Appleseed Memory (standalone)** | **43.63%** | **No LLM required** |
+| Appleseed Memory (v2 baseline) | 29.90% | Legacy version |
 | [OpenViking](https://github.com/volcengine/OpenViking) | 20.60% | Open source (ByteDance) |
 | [LCM](https://papers.voltropy.com/LCM) | 14.50% | Research (Voltropy) |
 | [Nowledge](https://nowledge.ai) | 0.40% | Commercial |
 
-*Mem0/Zep/OpenAI/LangMem/A-Mem scores from the [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). OpenViking/LCM/Nowledge scores from our [independent benchmark](https://github.com/dddabtc/lcm-prototype). Atlas scores from our own evaluation. All use LLM-as-Judge on the same LoCoMo QA pairs.*
+*Mem0/Zep/OpenAI/LangMem/A-Mem scores from the [Mem0 paper](https://arxiv.org/abs/2504.19413) (Khant et al., 2025). OpenViking/LCM/Nowledge scores from our [independent benchmark](https://github.com/dddabtc/lcm-prototype). Appleseed scores from our own evaluation. All use LLM-as-Judge on the same LoCoMo QA pairs.*
 
-### Atlas Memory — All Versions
+### Appleseed Memory — All Versions
 
 | Version | LongMemEval | LoCoMo | What You Need |
 |---------|-------------|--------|---------------|
@@ -121,7 +121,7 @@ We benchmark against every major memory system using standard academic tests.
 | **Production** | — | **74.70%** | OpenAI gpt-4.1-mini + embeddings |
 | **Standalone** | — | **43.63%** | Nothing — just the binary |
 
-Atlas Memory v4.3.0 scores 90.18% on LongMemEval-S (450/499 questions).
+Appleseed Memory v4.3.0 scores 90.18% on LongMemEval-S (450/499 questions).
 
 ---
 
@@ -140,49 +140,49 @@ Atlas Memory v4.3.0 scores 90.18% on LongMemEval-S (450/499 questions).
 ### Linux (x86_64)
 
 ```bash
-curl -L -o atlas-memory \
-  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-x86_64
-chmod +x atlas-memory
-./atlas-memory
+curl -L -o appleseed-memory \
+  https://github.com/dddabtc/appleseed-memory-releases/releases/latest/download/appleseed-memory-linux-x86_64
+chmod +x appleseed-memory
+./appleseed-memory
 ```
 
 ### Linux (ARM64 — Raspberry Pi, AWS Graviton)
 
 ```bash
-curl -L -o atlas-memory \
-  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-linux-aarch64
-chmod +x atlas-memory
-./atlas-memory
+curl -L -o appleseed-memory \
+  https://github.com/dddabtc/appleseed-memory-releases/releases/latest/download/appleseed-memory-linux-aarch64
+chmod +x appleseed-memory
+./appleseed-memory
 ```
 
 ### macOS (Apple Silicon — M1/M2/M3/M4)
 
 ```bash
-curl -L -o atlas-memory \
-  https://github.com/dddabtc/atlas-memory-releases/releases/latest/download/atlas-memory-macos-aarch64
-chmod +x atlas-memory
-./atlas-memory
+curl -L -o appleseed-memory \
+  https://github.com/dddabtc/appleseed-memory-releases/releases/latest/download/appleseed-memory-macos-aarch64
+chmod +x appleseed-memory
+./appleseed-memory
 ```
 
 ### Windows
 
 ```powershell
-# Download from https://github.com/dddabtc/atlas-memory-releases/releases/latest
-.\atlas-memory-windows-x86_64.exe --port 6420
+# Download from https://github.com/dddabtc/appleseed-memory-releases/releases/latest
+.\appleseed-memory-windows-x86_64.exe --port 6420
 ```
 
 ### Run as a Service (Linux)
 
 ```bash
-sudo tee /etc/systemd/system/atlas-memory.service << 'EOF'
+sudo tee /etc/systemd/system/appleseed-memory.service << 'EOF'
 [Unit]
-Description=Atlas Memory Server
+Description=Appleseed Memory Server
 After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/atlas-memory --port 6420
-WorkingDirectory=/var/lib/atlas-memory
+ExecStart=/usr/local/bin/appleseed-memory --port 6420
+WorkingDirectory=/var/lib/appleseed-memory
 Restart=always
 RestartSec=5
 
@@ -190,9 +190,9 @@ RestartSec=5
 WantedBy=multi-user.target
 EOF
 
-sudo mkdir -p /var/lib/atlas-memory
-sudo cp atlas-memory /usr/local/bin/
-sudo systemctl enable --now atlas-memory
+sudo mkdir -p /var/lib/appleseed-memory
+sudo cp appleseed-memory /usr/local/bin/
+sudo systemctl enable --now appleseed-memory
 ```
 
 ### Verify It's Running
@@ -206,22 +206,22 @@ curl http://localhost:6420/health
 
 ## Integrate with OpenClaw
 
-[OpenClaw](https://github.com/openclaw/openclaw) is an open-source AI agent framework. Atlas Memory plugs in as its long-term memory backend.
+[OpenClaw](https://github.com/openclaw/openclaw) is an open-source AI agent framework. Appleseed Memory plugs in as its long-term memory backend.
 
-### Step 1: Start Atlas Memory
+### Step 1: Start Appleseed Memory
 
 ```bash
-./atlas-memory --port 6420
+./appleseed-memory --port 6420
 ```
 
 ### Step 2: Configure OpenClaw
 
-In your OpenClaw `config.yaml`, add the Atlas Memory provider:
+In your OpenClaw `config.yaml`, add the Appleseed Memory provider:
 
 ```yaml
 memory:
-  provider: atlas
-  atlas:
+  provider: appleseed
+  appleseed:
     url: http://localhost:6420
     # Or remote: http://your-server:6420
 ```
@@ -229,7 +229,7 @@ memory:
 ### Step 3: That's It
 
 OpenClaw will automatically:
-- Store conversation summaries and key facts to Atlas Memory
+- Store conversation summaries and key facts to Appleseed Memory
 - Search relevant memories before each response
 - Use `memory_search` tool to recall prior context
 
@@ -245,26 +245,26 @@ User: "What should I order at this seafood restaurant?"
   ↓
 OpenClaw searches → POST /memories/search {"query": "food allergies dietary restrictions"}
   ↓
-Atlas returns → "User is allergic to shellfish"
+Appleseed returns → "User is allergic to shellfish"
   ↓
 OpenClaw: "I'd recommend the grilled salmon — and I remember you're allergic to shellfish, so I'll avoid suggesting shrimp or crab dishes."
 ```
 
 ### Multi-Agent Setup
 
-Run one Atlas Memory server, share it across multiple OpenClaw agents:
+Run one Appleseed Memory server, share it across multiple OpenClaw agents:
 
 ```yaml
 # Agent 1 (personal assistant)
 memory:
-  provider: atlas
-  atlas:
+  provider: appleseed
+  appleseed:
     url: http://192.168.1.100:6420
 
 # Agent 2 (work assistant) — same server, different session_ids
 memory:
-  provider: atlas
-  atlas:
+  provider: appleseed
+  appleseed:
     url: http://192.168.1.100:6420
 ```
 
@@ -275,13 +275,13 @@ Each agent uses `session_id` to keep their memories separate, or share memories 
 ## CLI Reference
 
 ```
-atlas-memory [OPTIONS]
+appleseed-memory [OPTIONS]
 
 Options:
   -p, --port <PORT>      Server port [default: 6420]
   -H, --host <HOST>      Bind address [default: 0.0.0.0]
   -c, --config <FILE>    Path to config.yaml
-  -d, --db <PATH>        Database file path [default: atlas_memory.db]
+  -d, --db <PATH>        Database file path [default: appleseed_memory.db]
   -h, --help             Print help
   -V, --version          Print version
 ```
@@ -290,17 +290,17 @@ Options:
 
 ```bash
 # Default — just works
-./atlas-memory
+./appleseed-memory
 
 # Custom port
-./atlas-memory --port 8080
+./appleseed-memory --port 8080
 
 # Production with config
-./atlas-memory --config /etc/atlas-memory/config.yaml
+./appleseed-memory --config /etc/appleseed-memory/config.yaml
 
 # Multiple instances
-./atlas-memory --port 6420 --db production.db &
-./atlas-memory --port 6421 --db staging.db &
+./appleseed-memory --port 6420 --db production.db &
+./appleseed-memory --port 6421 --db staging.db &
 ```
 
 ---
@@ -478,7 +478,7 @@ const { results } = await fetch(`${ATLAS}/memories/search`, {
 
 ## Configuration
 
-Atlas Memory works with **zero configuration**. For advanced setups, create `config.yaml`:
+Appleseed Memory works with **zero configuration**. For advanced setups, create `config.yaml`:
 
 ```yaml
 server:
@@ -486,7 +486,7 @@ server:
   port: 6420
 
 database:
-  path: atlas_memory.db
+  path: appleseed_memory.db
 
 # Optional: better search with OpenAI embeddings
 embedding:
@@ -548,10 +548,10 @@ Full results are in the [comparison tables above](#how-good-is-it). Summary:
 ## FAQ
 
 **Q: Do I need an OpenAI API key?**
-No. Atlas Memory works standalone with zero external dependencies. An API key improves search quality (semantic embeddings vs token overlap) but is completely optional.
+No. Appleseed Memory works standalone with zero external dependencies. An API key improves search quality (semantic embeddings vs token overlap) but is completely optional.
 
 **Q: Where is my data stored?**
-In a SQLite file (`atlas_memory.db`) in your working directory. It never leaves your machine.
+In a SQLite file (`appleseed_memory.db`) in your working directory. It never leaves your machine.
 
 **Q: Can I run this on a Raspberry Pi?**
 Linux ARM64 build coming soon. The binary is lightweight (~12MB) and should work well on Pi 4+.
@@ -563,7 +563,7 @@ Tested with 3,000+ memories. SQLite can handle millions. Search latency scales w
 The web UI is embedded in the binary. Run it and open `http://localhost:6420` in your browser. Includes dashboard, memory browser, threads, DAG viewer, API monitor, and settings.
 
 **Q: How is this different from Mem0?**
-Atlas Memory scores 90.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Atlas preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
+Appleseed Memory scores 90.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement. The key difference: Appleseed preserves raw conversation data and enriches on top, while Mem0 compresses conversations into facts, losing context.
 
 ---
 
@@ -571,12 +571,12 @@ Atlas Memory scores 90.18% on LongMemEval vs Mem0's 29.07% — a 3x improvement.
 
 | Platform | Status | Binary |
 |----------|--------|--------|
-| Linux x86_64 | ✅ Available | `atlas-memory-linux-x86_64` |
-| Linux ARM64 (Pi, Graviton) | ✅ Available | `atlas-memory-linux-aarch64` |
-| macOS ARM64 (Apple Silicon) | ✅ Available | `atlas-memory-macos-aarch64` |
-| Windows x86_64 | ✅ Available | `atlas-memory-windows-x86_64.exe` |
+| Linux x86_64 | ✅ Available | `appleseed-memory-linux-x86_64` |
+| Linux ARM64 (Pi, Graviton) | ✅ Available | `appleseed-memory-linux-aarch64` |
+| macOS ARM64 (Apple Silicon) | ✅ Available | `appleseed-memory-macos-aarch64` |
+| Windows x86_64 | ✅ Available | `appleseed-memory-windows-x86_64.exe` |
 
-[**→ Download latest release**](https://github.com/dddabtc/atlas-memory-releases/releases/latest)
+[**→ Download latest release**](https://github.com/dddabtc/appleseed-memory-releases/releases/latest)
 
 ---
 

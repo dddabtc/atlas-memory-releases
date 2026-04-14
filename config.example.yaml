@@ -1,4 +1,4 @@
-# Atlas Memory Configuration
+# Appleseed Memory Configuration
 # Copy to config.yaml and adjust as needed.
 
 server:
@@ -6,7 +6,7 @@ server:
   port: 6420
 
 database:
-  path: "atlas_memory.db"
+  path: "appleseed_memory.db"
 
 search:
   # Hybrid search weights (must sum to 1.0)
